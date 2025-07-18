@@ -2,24 +2,39 @@
 <html>
   <head>
     <title>Multi Search Redirect</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding-top: 50px;
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🔍 Ready to search across vendors</h1>
+    <button onclick="launchSearch()">Search Now</button>
+
     <script>
       function launchSearch() {
         const params = new URLSearchParams(window.location.search);
-        const query = params.get("q");
-        if (query) {
-          const urls = [
-            `https://www.nellisauction.com/search?Location+Name=Phoenix&query=${query}`,
-            `https://online.localauctions.com/items/keyword_${query}`,
-            `https://www.mac.bid/search?q=${query}`,
-            `https://bid.delaneyauction.com/allitems/keyword_${query}`
-          ];
-          urls.forEach(url => window.open(url, "_blank"));
+        const query = params.get("q") || "";
+
+        if (!query) {
+          alert("Missing search query.");
+          return;
         }
+
+        // 🚀 Launch all four tabs directly inside the click event
+        window.open(`https://www.nellisauction.com/search?Location+Name=Phoenix&query=${query}`, "_blank");
+        window.open(`https://online.localauctions.com/items/keyword_${query}`, "_blank");
+        window.open(`https://www.mac.bid/search?q=${query}`, "_blank");
+        window.open(`https://bid.delaneyauction.com/allitems/keyword_${query}`, "_blank");
       }
     </script>
-  </head>
-  <body>
-    <h1>🔎 Ready to launch your searches</h1>
-    <button onclick="launchSearch()">Search Now</button>
   </body>
 </html>
