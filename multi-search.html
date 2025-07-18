@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Multi Search Redirect</title>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const query = params.get("q");
+      if (query) {
+        const urls = [
+          `https://www.nellisauction.com/search?Location+Name=Phoenix&query=${query}`,
+          `https://online.localauctions.com/items/keyword_${query}`,
+          `https://www.mac.bid/search?q=${query}`,
+          `https://bid.delaneyauction.com/allitems/keyword_${query}`
+        ];
+        urls.forEach(url => window.open(url, "_blank"));
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Launching search tabs...</h1>
+  </body>
+</html>
