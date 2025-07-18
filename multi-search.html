@@ -1,46 +1,29 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Search Launcher</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        padding-top: 50px;
-      }
-      button {
-        padding: 12px 20px;
-        font-size: 16px;
-        cursor: pointer;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>🔍 Multi-Search Launcher</h1>
-    <p>Click below to open all search tabs:</p>
-    <button onclick="launchSearch()">Search All</button>
-
+    <title>Multi Search Redirect</title>
     <script>
       function launchSearch() {
-        const q = new URLSearchParams(window.location.search).get("q");
-        if (!q) return alert("Missing search term!");
+        const query = new URLSearchParams(location.search).get("q");
+        if (!query) return;
 
-        // Generate anchor elements and simulate clicks
-        const links = [
-          `https://www.nellisauction.com/search?Location+Name=Phoenix&query=${q}`,
-          `https://online.localauctions.com/items/keyword_${q}`,
-          `https://www.mac.bid/search?q=${q}`,
-          `https://bid.delaneyauction.com/allitems/keyword_${q}`
+        const urls = [
+          `https://www.nellisauction.com/search?Location+Name=Phoenix&query=${query}`,
+          `https://online.localauctions.com/items/keyword_${query}`,
+          `https://www.mac.bid/search?q=${query}`,
+          `https://bid.delaneyauction.com/allitems/keyword_${query}`
         ];
 
-        links.forEach(url => {
-          const a = document.createElement('a');
-          a.href = url;
-          a.target = '_blank';
-          a.rel = 'noopener';
-          a.click(); // Simulate manual click
+        urls.forEach((url, i) => {
+          setTimeout(() => {
+            window.open(url, '_blank');
+          }, i * 300); // stagger by 300ms
         });
       }
     </script>
+  </head>
+  <body>
+    <h1>🔎 Ready to search across vendors</h1>
+    <button onclick="launchSearch()">Search Now</button>
   </body>
 </html>
