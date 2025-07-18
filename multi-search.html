@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Multi Search Redirect</title>
+    <title>Search Launcher</title>
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -9,31 +9,37 @@
         padding-top: 50px;
       }
       button {
-        padding: 10px 20px;
+        padding: 12px 20px;
         font-size: 16px;
         cursor: pointer;
       }
     </style>
   </head>
   <body>
-    <h1>🔍 Ready to search across vendors</h1>
-    <button onclick="launchSearch()">Search Now</button>
+    <h1>🔍 Multi-Search Launcher</h1>
+    <p>Click below to open all search tabs:</p>
+    <button onclick="launchSearch()">Search All</button>
 
     <script>
       function launchSearch() {
-        const params = new URLSearchParams(window.location.search);
-        const query = params.get("q") || "";
+        const q = new URLSearchParams(window.location.search).get("q");
+        if (!q) return alert("Missing search term!");
 
-        if (!query) {
-          alert("Missing search query.");
-          return;
-        }
+        // Generate anchor elements and simulate clicks
+        const links = [
+          `https://www.nellisauction.com/search?Location+Name=Phoenix&query=${q}`,
+          `https://online.localauctions.com/items/keyword_${q}`,
+          `https://www.mac.bid/search?q=${q}`,
+          `https://bid.delaneyauction.com/allitems/keyword_${q}`
+        ];
 
-        // 🚀 Launch all four tabs directly inside the click event
-        window.open(`https://www.nellisauction.com/search?Location+Name=Phoenix&query=${query}`, "_blank");
-        window.open(`https://online.localauctions.com/items/keyword_${query}`, "_blank");
-        window.open(`https://www.mac.bid/search?q=${query}`, "_blank");
-        window.open(`https://bid.delaneyauction.com/allitems/keyword_${query}`, "_blank");
+        links.forEach(url => {
+          const a = document.createElement('a');
+          a.href = url;
+          a.target = '_blank';
+          a.rel = 'noopener';
+          a.click(); // Simulate manual click
+        });
       }
     </script>
   </body>
